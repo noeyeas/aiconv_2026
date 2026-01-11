@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#EAEEFC">
+    <title>광운대학교 인공지능융합대학 오픈카톡방 인증</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        peri: {
+                            50: '#F5F7FC',
+                            100: '#EAEEFC',
+                            200: '#D5DEFC',
+                            300: '#B8C8F7',
+                            400: '#9BABEB',
+                            500: '#8B9AD4',
+                            600: '#7082BE',
+                            700: '#5A6BA3',
+                            800: '#4A5882',
+                            900: '#3D4A6B'
+                        }
+                    },
+                    fontFamily: {
+                        'gothic': ['Nanum Gothic', 'sans-serif'],
+                        'title': ['Black Han Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 기본 리셋 및 박스 사이징 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Nanum Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Tailwind 백업 스타일 */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-shrink-0 { flex-shrink: 0; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .font-bold { font-weight: 700; }
+        .font-medium { font-weight: 500; }
+        .underline { text-decoration: underline; }
+        .w-full { width: 100%; }
+        .min-h-screen { min-height: 100vh; }
+        .max-w-lg { max-width: 32rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-white { color: white; }
+        .rounded-full { border-radius: 9999px; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-3xl { border-radius: 1.5rem; }
+        .max-h-48 { max-height: 12rem; }
+        .w-5 { width: 1.25rem; }
+        .h-5 { height: 1.25rem; }
+        .w-7 { width: 1.75rem; }
+        .h-7 { height: 1.75rem; }
+        .w-8 { width: 2rem; }
+        .h-8 { height: 2rem; }
+        .w-12 { width: 3rem; }
+        .h-12 { height: 3rem; }
+        .w-14 { width: 3.5rem; }
+        .h-14 { height: 3.5rem; }
+        .w-16 { width: 4rem; }
+        .h-16 { height: 4rem; }
+        
+        /* 커스텀 색상 */
+        .text-peri-500 { color: #8B9AD4; }
+        .text-peri-600 { color: #7082BE; }
+        .text-peri-700 { color: #5A6BA3; }
+        .text-peri-800 { color: #4A5882; }
+        .bg-peri-200 { background-color: #D5DEFC; }
+        .text-green-500 { color: #22C55E; }
+        .text-green-600 { color: #16A34A; }
+        .text-red-500 { color: #EF4444; }
+        .text-gray-900 { color: #111827; }
+        .bg-yellow-400 { background-color: #FACC15; }
+        .bg-yellow-300 { background-color: #FDE047; }
+        
+        /* 배경 */
+        .bg-pattern {
+            background: linear-gradient(135deg, #F5F7FC 0%, #EAEEFC 50%, #E0E7FA 100%);
+            background-attachment: fixed;
+        }
+        
+        .bg-pattern::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(184, 200, 247, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(155, 171, 235, 0.3) 0%, transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(139, 154, 212, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bg-pattern::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120vmin;
+            height: 120vmin;
+            background-image: url('logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.07;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* 카드 */
+        .card-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(184, 200, 247, 0.5);
+            box-shadow: 0 8px 32px rgba(139, 154, 212, 0.15);
+        }
+        
+        /* 업로드 영역 */
+        .upload-zone {
+            border: 2px dashed rgba(139, 154, 212, 0.5);
+            background: rgba(245, 247, 252, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: #8B9AD4;
+            background: rgba(184, 200, 247, 0.2);
+        }
+        
+        /* 인증 버튼 */
+        .btn-verify {
+            background: linear-gradient(135deg, #9BABEB 0%, #8B9AD4 100%);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-verify:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 154, 212, 0.4);
+        }
+        
+        .btn-verify:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* 애니메이션 */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .loading-spinner {
+            border: 3px solid rgba(184, 200, 247, 0.3);
+            border-top-color: #8B9AD4;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 결과 카드 */
+        .success-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .error-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .code-box {
+            background: linear-gradient(135deg, #F5F7FC 0%, #EAEEFC 100%);
+            border: 1px solid rgba(139, 154, 212, 0.3);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.1em;
+        }
+        
+        .bg-peri-100-50 {
+            background: rgba(234, 238, 252, 0.5);
+        }
+        
+        .bg-green-500-20 {
+            background: rgba(34, 197, 94, 0.2);
+        }
+        
+        .bg-red-500-20 {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 폰트 */
+        .font-title {
+            font-family: 'Black Han Sans', 'Nanum Gothic', sans-serif;
+        }
+        
+        /* 모바일 safe area 지원 */
+        .safe-area {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* 모바일 터치 최적화 */
+        .touch-target {
+            min-height: 48px;
+            touch-action: manipulation;
+        }
+        
+        /* 모바일에서 탭 하이라이트 제거 */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* 버튼 active 상태 */
+        .btn-verify:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+        
+        .upload-zone:active {
+            transform: scale(0.99);
+        }
+        
+        /* 링크/버튼 스타일 */
+        a, button {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* 카카오 버튼 */
+        .kakao-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #FACC15;
+            border-radius: 0.75rem;
+            color: #111827;
+            font-weight: 700;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+        
+        .kakao-btn:hover {
+            background-color: #FDE047;
+        }
+        
+        /* 복사 버튼 */
+        .copy-btn {
+            background: rgba(139, 154, 212, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(139, 154, 212, 0.3);
+        }
+        
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .w-6 { width: 1.5rem; }
+        .h-6 { height: 1.5rem; }
+        
+        /* 이미지 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* SVG 아이콘 */
+        svg {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen safe-area">
+    <div class="content-wrapper min-h-screen flex flex-col items-center justify-center px-4 py-12">
+        <!-- Header -->
+        <div class="text-center mb-8 slide-up">
+            <h1 class="font-title text-4xl md:text-5xl text-peri-800 mb-2" ondblclick="showAdminPrompt()">
+                인공지능융합대학
+            </h1>
+            <p class="text-peri-500 text-sm mb-3">제3대 학생회 하성</p>
+            <p class="text-peri-600 text-lg">오픈카톡방 입장 인증</p>
+        </div>
+        
+        <!-- Admin Panel (숨김) -->
+        <div id="adminPanel" class="hidden w-full max-w-lg card-glass rounded-3xl p-6 mb-6 slide-up">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-peri-800 text-lg font-bold">🔧 관리자 모드</h2>
+                <button onclick="closeAdminPanel()" class="text-peri-500 text-sm">닫기 ✕</button>
+            </div>
+            <div class="bg-peri-100/50 rounded-xl p-4 max-h-64 overflow-y-auto">
+                <p class="text-peri-600 text-sm mb-2">추출된 이름 목록:</p>
+                <div id="adminNameList" class="text-peri-800 text-sm font-mono">
+                    <p class="text-peri-500">아직 추출된 이름이 없습니다.</p>
+                </div>
+            </div>
+            <p class="text-peri-500 text-xs mt-3">총 <span id="adminNameCount">0</span>명</p>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="w-full max-w-lg card-glass rounded-3xl p-8 slide-up" style="animation-delay: 0.1s;">
+            <!-- Upload Section -->
+            <div id="uploadSection">
+                <!-- 1. 도서관 QR 이미지 -->
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-6 h-6 rounded-full bg-peri-200 flex items-center justify-center text-peri-700 text-sm font-bold">1</span>
+                        <h2 class="text-peri-800 text-lg font-bold">도서관 QR 이미지</h2>
+                    </div>
+                    <p class="text-peri-600 text-sm ml-8">모바일 학생증의 도서관 QR 캡처 이미지</p>
+                </div>
+                
+                <!-- QR 이미지 미리보기 -->
+                <div id="qrPreviewZone" class="hidden upload-zone rounded-2xl p-4 text-center mb-4">
+                    <img id="qrPreviewImg" class="max-h-36 mx-auto rounded-xl mb-2" alt="QR 미리보기">
+                    <p id="qrFileName" class="text-peri-600 text-sm mb-2"></p>
+                    <button type="button" onclick="resetQrPreview()" class="text-peri-500 text-sm underline touch-target">
+                        다른 이미지 선택
+                    </button>
+                </div>
+                
+                <!-- QR 업로드 버튼 -->
+                <div id="qrUploadBtn" class="mb-6">
+                    <input type="file" id="qrFileInput" accept="image/*" class="hidden" onchange="handleQrFileSelect(event)">
+                    <button 
+                        type="button"
+                        onclick="document.getElementById('qrFileInput').click()"
+                        class="upload-zone rounded-2xl p-4 w-full flex items-center justify-center gap-3 touch-target"
+                    >
+                        <div class="w-12 h-12 rounded-xl bg-peri-200 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-peri-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-peri-700 font-medium">QR 이미지 선택</p>
+                            <p class="text-peri-500 text-sm">도서관 QR 캡처 이미지</p>
+                        </div>
+                    </button>
+                </div>
+                
+                <!-- 2. 주민등록증 이미지 -->
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-6 h-6 rounded-full bg-peri-200 flex items-center justify-center text-peri-700 text-sm font-bold">2</span>
+                        <h2 class="text-peri-800 text-lg font-bold">주민등록증 사진</h2>
+                    </div>
+                    <p class="text-peri-600 text-sm ml-8">본인 확인을 위한 주민등록증 사진</p>
+                </div>
+                
+                <!-- 주민등록증 이미지 미리보기 -->
+                <div id="idPreviewZone" class="hidden upload-zone rounded-2xl p-4 text-center mb-4">
+                    <img id="idPreviewImg" class="max-h-36 mx-auto rounded-xl mb-2" alt="주민등록증 미리보기">
+                    <p id="idFileName" class="text-peri-600 text-sm mb-2"></p>
+                    <button type="button" onclick="resetIdPreview()" class="text-peri-500 text-sm underline touch-target">
+                        다른 이미지 선택
+                    </button>
+                </div>
+                
+                <!-- 주민등록증 업로드 버튼 -->
+                <div id="idUploadBtn" class="mb-4">
+                    <input type="file" id="idFileInput" accept="image/*" class="hidden" onchange="handleIdFileSelect(event)">
+                    <button 
+                        type="button"
+                        onclick="document.getElementById('idFileInput').click()"
+                        class="upload-zone rounded-2xl p-4 w-full flex items-center justify-center gap-3 touch-target"
+                    >
+                        <div class="w-12 h-12 rounded-xl bg-peri-200 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-peri-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-peri-700 font-medium">주민등록증 선택</p>
+                            <p class="text-peri-500 text-sm">본인 확인용 신분증 사진</p>
+                        </div>
+                    </button>
+                </div>
+                
+                
+                <button 
+                    id="verifyBtn" 
+                    class="btn-verify w-full py-4 rounded-xl text-white font-bold text-lg disabled:opacity-50"
+                    onclick="verifyImage()"
+                    disabled
+                >
+                    인증하기
+                </button>
+            </div>
+            
+            <!-- Loading Section -->
+            <div id="loadingSection" class="hidden text-center py-8">
+                <div class="loading-spinner w-16 h-16 rounded-full mx-auto mb-6"></div>
+                <p id="loadingStatus" class="text-peri-700 text-xl font-bold">확인중... 0%</p>
+            </div>
+            
+            <!-- Result Section -->
+            <div id="resultSection" class="hidden">
+                <!-- Success -->
+                <div id="successResult" class="hidden">
+                    <div class="success-card rounded-2xl p-6 mb-6 text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500-20 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-green-600 text-xl font-bold mb-2">인증 성공!</h3>
+                        <p id="detectedDept" class="text-peri-600 text-sm"></p>
+                    </div>
+                    
+                    <div class="bg-peri-100-50 rounded-2xl p-6 mb-4">
+                        <p class="text-peri-600 text-sm mb-3">오픈카톡방 링크</p>
+                        <a 
+                            href="https://open.kakao.com/o/g5oHeOai" 
+                            target="_blank"
+                            class="kakao-btn"
+                        >
+                            💬 오픈카톡방 입장하기
+                        </a>
+                    </div>
+                    
+                    <div class="bg-peri-100-50 rounded-2xl p-6">
+                        <p class="text-peri-600 text-sm mb-3">참여 코드</p>
+                        <div class="code-box rounded-xl py-4 flex items-center justify-center gap-4">
+                            <span class="text-3xl text-peri-700 font-bold">aiconv26</span>
+                            <button 
+                                onclick="copyCode()"
+                                class="copy-btn p-2 rounded-lg"
+                                title="복사하기"
+                            >
+                                <svg id="copyIcon" class="w-6 h-6 text-peri-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                <svg id="checkIcon" class="w-6 h-6 text-green-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <p id="copyMsg" class="text-green-500 text-sm text-center mt-2 hidden">복사되었습니다!</p>
+                    </div>
+                </div>
+                
+                <!-- Error -->
+                <div id="errorResult" class="hidden">
+                    <div class="error-card rounded-2xl p-6 text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500-20 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-red-500 text-xl font-bold mb-2">인증 실패</h3>
+                        <p id="errorMessage" class="text-peri-600 text-sm mb-6"></p>
+                        <button 
+                            class="px-6 py-3 bg-peri-200 hover:bg-peri-300 rounded-xl text-peri-700 font-medium transition-colors"
+                            onclick="resetForm()"
+                        >
+                            다시 시도하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Privacy Notice -->
+            <div class="mt-6 flex items-start gap-3 p-4 bg-peri-100/50 rounded-xl">
+                <svg class="w-5 h-5 text-peri-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                <p class="text-peri-600 text-sm">
+                    <span class="text-peri-700 font-medium">개인정보 보호</span><br>
+                    업로드된 이미지는 서버로 전송되지 않으며, 브라우저에서만 처리됩니다.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <p class="text-peri-500 text-sm mt-8">
+            © 2026 광운대학교 인공지능융합대학
+        </p>
+    </div>
+
+    <script>
+        let qrFile = null;
+        let idFile = null;
+        const validDepartments = ['인공지능융합대학', '컴퓨터정보공학부', '소프트웨어학부', '정보융합학부'];
+        
+        // 관리자 모드용 - 추출된 이름 저장
+        let extractedNames = JSON.parse(localStorage.getItem('extractedNames') || '[]');
+        
+        // 관리자 모드 열기
+        function showAdminPrompt() {
+            const password = prompt('관리자 비밀번호를 입력하세요:');
+            if (password === '041104') {
+                document.getElementById('adminPanel').classList.remove('hidden');
+                updateAdminNameList();
+            }
+        }
+        
+        // 관리자 패널 닫기
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.add('hidden');
+        }
+        
+        // 이름 추가
+        function addExtractedName(name, studentId, dept) {
+            const timestamp = new Date().toLocaleString('ko-KR');
+            extractedNames.push({ name, studentId, dept, timestamp });
+            localStorage.setItem('extractedNames', JSON.stringify(extractedNames));
+            updateAdminNameList();
+        }
+        
+        // 관리자 이름 목록 업데이트
+        function updateAdminNameList() {
+            const listEl = document.getElementById('adminNameList');
+            const countEl = document.getElementById('adminNameCount');
+            
+            if (extractedNames.length === 0) {
+                listEl.innerHTML = '<p class="text-peri-500">아직 추출된 이름이 없습니다.</p>';
+                countEl.textContent = '0';
+            } else {
+                listEl.innerHTML = extractedNames.map((item, idx) => 
+                    `<div class="py-1 border-b border-peri-200 last:border-0">
+                        <span class="text-peri-400">${idx + 1}.</span> 
+                        <strong>${item.name || '이름없음'}</strong> 
+                        <span class="text-peri-500">(${item.studentId || '-'})</span>
+                        <br><span class="text-xs text-peri-400">${item.timestamp}</span>
+                    </div>`
+                ).join('');
+                countEl.textContent = extractedNames.length;
+            }
+        }
+        
+        // QR 이미지 선택
+        function handleQrFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                qrFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('qrUploadBtn').classList.add('hidden');
+                    document.getElementById('qrPreviewZone').classList.remove('hidden');
+                    document.getElementById('qrPreviewImg').src = e.target.result;
+                    document.getElementById('qrFileName').textContent = file.name;
+                    updateVerifyButton();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // 주민등록증 이미지 선택
+        function handleIdFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                idFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('idUploadBtn').classList.add('hidden');
+                    document.getElementById('idPreviewZone').classList.remove('hidden');
+                    document.getElementById('idPreviewImg').src = e.target.result;
+                    document.getElementById('idFileName').textContent = file.name;
+                    updateVerifyButton();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function resetQrPreview() {
+            qrFile = null;
+            document.getElementById('qrFileInput').value = '';
+            document.getElementById('qrPreviewZone').classList.add('hidden');
+            document.getElementById('qrUploadBtn').classList.remove('hidden');
+            updateVerifyButton();
+        }
+        
+        function resetIdPreview() {
+            idFile = null;
+            document.getElementById('idFileInput').value = '';
+            document.getElementById('idPreviewZone').classList.add('hidden');
+            document.getElementById('idUploadBtn').classList.remove('hidden');
+            updateVerifyButton();
+        }
+        
+        function updateVerifyButton() {
+            document.getElementById('verifyBtn').disabled = !(qrFile && idFile);
+        }
+        
+        async function verifyImage() {
+            if (!qrFile || !idFile) return;
+            
+            // Show loading
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+            document.getElementById('loadingSection').classList.add('fade-in');
+            
+            try {
+                const loadingStatus = document.getElementById('loadingStatus');
+                
+                // Step 1: QR 코드 디코딩
+                loadingStatus.textContent = '확인중... 0%';
+                const qrData = await decodeQRCode(qrFile);
+                
+                if (!qrData) {
+                    showError('QR 코드를 인식할 수 없습니다. 도서관 QR 이미지를 다시 확인해주세요.');
+                    return;
+                }
+                
+                console.log('QR 코드 데이터:', qrData);
+                
+                // Step 2: 학번 확인
+                // 학번 구조: 년도(4자리) + 식별번호(3~4자리) + 개인번호
+                // 신입생(4자리): 4020-컴퓨터정보공학부, 4030-소프트웨어학부, 4040-정보융합학부, 4050-로봇학부
+                // 고학번(3자리): 202-컴퓨터정보공학부, 203-소프트웨어학부, 204-정보융합학부, 205-로봇학부
+                const studentIdPattern = /\d{4}(4020|4030|4040|4050|202|203|204|205)\d+/;
+                const foundStudentId = qrData.match(studentIdPattern);
+                
+                let foundDepartment = null;
+                for (const dept of validDepartments) {
+                    if (qrData.includes(dept)) {
+                        foundDepartment = dept;
+                        break;
+                    }
+                }
+                
+                if (!foundStudentId && !foundDepartment) {
+                    showError('QR 코드에서 인공지능융합대학 소속 정보를 찾을 수 없습니다.');
+                    return;
+                }
+                
+                // Step 3: QR 이미지에서 이름 추출 (OCR)
+                loadingStatus.textContent = '확인중... 30%';
+                const qrOcrResult = await extractTextFromImage(qrFile);
+                
+                const qrName = extractNameFromQR(qrOcrResult);
+                console.log('QR에서 추출한 이름:', qrName);
+                
+                if (!qrName) {
+                    showError('QR 이미지에서 이름을 찾을 수 없습니다. 이름이 보이는 캡처 이미지를 사용해주세요.');
+                    return;
+                }
+                
+                // Step 4: 주민등록증 사진 확인
+                loadingStatus.textContent = '확인중... 90%';
+                console.log('주민등록증 이미지 업로드 확인:', idFile.name);
+                
+                // Show results - 주민등록증 이미지가 업로드되면 인증 완료
+                document.getElementById('loadingSection').classList.add('hidden');
+                document.getElementById('resultSection').classList.remove('hidden');
+                document.getElementById('resultSection').classList.add('fade-in');
+                
+                document.getElementById('successResult').classList.remove('hidden');
+                let verificationMessage = foundStudentId 
+                    ? `인공지능융합대학 소속이 확인되었습니다.`
+                    : `${foundDepartment} 소속이 확인되었습니다.`;
+                document.getElementById('detectedDept').innerHTML = verificationMessage;
+                
+                // 관리자용 - 추출된 이름 저장
+                const studentIdStr = foundStudentId ? foundStudentId[0] : '-';
+                const deptStr = foundDepartment || '인공지능융합대학';
+                addExtractedName(qrName, studentIdStr, deptStr);
+                
+            } catch (error) {
+                console.error('처리 오류:', error);
+                showError('이미지 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        }
+        
+        function showError(message) {
+            document.getElementById('loadingSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+            document.getElementById('resultSection').classList.add('fade-in');
+            document.getElementById('errorResult').classList.remove('hidden');
+            document.getElementById('errorMessage').innerHTML = message;
+        }
+        
+        // QR 코드 디코딩 함수
+        function decodeQRCode(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
+                        
+                        if (qrCode) {
+                            resolve(qrCode.data);
+                        } else {
+                            resolve(null);
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // 이미지 전처리 (대비 향상, 선명하게)
+        function preprocessImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // 이미지 크기 조정 (너무 크면 축소, 너무 작으면 확대)
+                        let width = img.width;
+                        let height = img.height;
+                        const maxSize = 1500;
+                        const minSize = 800;
+                        
+                        if (width > maxSize || height > maxSize) {
+                            const ratio = Math.min(maxSize / width, maxSize / height);
+                            width *= ratio;
+                            height *= ratio;
+                        } else if (width < minSize && height < minSize) {
+                            const ratio = Math.max(minSize / width, minSize / height);
+                            width *= ratio;
+                            height *= ratio;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // 이미지 데이터 가져오기
+                        const imageData = ctx.getImageData(0, 0, width, height);
+                        const data = imageData.data;
+                        
+                        // 그레이스케일 + 대비 향상
+                        for (let i = 0; i < data.length; i += 4) {
+                            // 그레이스케일
+                            const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                            
+                            // 대비 향상 (contrast factor: 1.5)
+                            const factor = 1.5;
+                            const adjusted = factor * (gray - 128) + 128;
+                            const final = Math.max(0, Math.min(255, adjusted));
+                            
+                            data[i] = final;     // R
+                            data[i + 1] = final; // G
+                            data[i + 2] = final; // B
+                        }
+                        
+                        ctx.putImageData(imageData, 0, 0);
+                        
+                        // Canvas를 Blob으로 변환
+                        canvas.toBlob((blob) => {
+                            resolve(blob);
+                        }, 'image/png');
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // OCR로 텍스트 추출
+        async function extractTextFromImage(file) {
+            const result = await Tesseract.recognize(file, 'kor', {
+                logger: m => {
+                    if (m.status === 'recognizing text') {
+                        const percent = 30 + Math.round(m.progress * 60);
+                        document.getElementById('loadingStatus').textContent = 
+                            `확인중... ${percent}%`;
+                    }
+                }
+            });
+            return result.data.text;
+        }
+        
+        // 도서관 QR 이미지에서 이름 추출 (이름 라벨이 있는 경우)
+        function extractNameFromQR(text) {
+            console.log('QR OCR 텍스트:', text);
+            
+            const namePatterns = [
+                // 도서관 QR 이미지 패턴 (테이블 형식: "이    름 | 김세연" 또는 "이 름 김세연")
+                /이\s+름\s*[|｜\s]\s*([가-힣]{2,4})/,
+                // "이름: 홍길동" 패턴
+                /이\s*름\s*[:：]?\s*([가-힣]{2,4})/,
+                // "성명: 홍길동" 패턴
+                /성\s*명\s*[:：]?\s*([가-힣]{2,4})/,
+            ];
+            
+            for (const pattern of namePatterns) {
+                const match = text.match(pattern);
+                if (match && match[1]) {
+                    console.log('QR 매칭된 패턴:', pattern, '-> 이름:', match[1]);
+                    return match[1].trim();
+                }
+            }
+            
+            return extractKoreanNameGeneral(text);
+        }
+        
+        // 주민등록증에서 이름 추출
+        function extractNameFromID(text) {
+            console.log('주민등록증 OCR 텍스트:', text);
+            
+            // 텍스트 정규화 (줄바꿈, 공백 정리)
+            const normalizedText = text.replace(/\r\n/g, '\n').replace(/\s+/g, ' ');
+            
+            const namePatterns = [
+                // 주민등록증 패턴: "김세연(金世燕)" - 한자 괄호 앞의 한글 이름
+                /([가-힣]{2,4})\s*[\(（\[【][一-龥\u4E00-\u9FFF\u3400-\u4DBF]+[\)）\]】]/,
+                // 주민등록증 패턴: "김세연 (金世燕)" - 공백 포함
+                /([가-힣]{2,4})\s+[\(（][^)）]+[\)）]/,
+                // "등록증" 다음에 나오는 한글 이름
+                /등록증[^\n가-힣]*([가-힣]{2,4})/,
+                // 주민번호 앞에 나오는 이름 (6자리-7자리 패턴 앞)
+                /([가-힣]{2,4})[^\d]*\d{6}\s*[-−]/,
+                // 줄 시작에서 한글 이름 + 괄호
+                /^([가-힣]{2,4})\s*[\(（]/m,
+            ];
+            
+            for (const pattern of namePatterns) {
+                const match = text.match(pattern);
+                if (match && match[1]) {
+                    const name = match[1].trim();
+                    // 제외 단어 확인
+                    const excludeWords = ['주민등록', '등록증', '대한민국', '광역시', '청장'];
+                    if (!excludeWords.some(ex => name.includes(ex))) {
+                        console.log('주민등록증 매칭된 패턴:', pattern, '-> 이름:', name);
+                        return name;
+                    }
+                }
+            }
+            
+            // 일반 패턴으로 시도 (제외 단어 더 많이)
+            return extractKoreanNameFromID(text);
+        }
+        
+        // 주민등록증 전용 일반 이름 추출
+        function extractKoreanNameFromID(text) {
+            const generalNameMatch = text.match(/[가-힣]{2,4}/g);
+            if (generalNameMatch) {
+                const excludeWords = [
+                    '주민등록증', '주민등록', '등록증', '대한민국',
+                    '광역시', '유성구', '청장', '번길', '아파트',
+                    '트리플', '시티', '포레', '대전', '서울', '부산', '인천',
+                    '지족로', '지족동',
+                    '렌호', '부소', '민등', '록증' // OCR 오인식 단어들
+                ];
+                for (const word of generalNameMatch) {
+                    const isExcluded = excludeWords.some(ex => 
+                        word.includes(ex) || ex.includes(word) || word === ex
+                    );
+                    // 2~4글자 한글 이름이고, 제외 단어가 아니면
+                    if (!isExcluded && word.length >= 2 && word.length <= 4) {
+                        console.log('주민등록증 일반 매칭으로 찾은 이름:', word);
+                        return word;
+                    }
+                }
+            }
+            return null;
+        }
+        
+        // 일반적인 한글 이름 추출
+        function extractKoreanNameGeneral(text) {
+            // 일반적인 한글 이름 찾기 (2~4글자)
+            const generalNameMatch = text.match(/[가-힣]{2,4}/g);
+            if (generalNameMatch) {
+                const excludeWords = [
+                    '주민등록증', '주민등록', '등록증', '대한민국', 
+                    '광운대학교', '광운대', '대학교',
+                    '컴퓨터', '소프트웨어', '정보융합', '인공지능', '융합대학',
+                    '도서관', '학생증', '모바일', '이용증',
+                    '학부생', '대학원', '학번', '교번', '소속', '신분',
+                    '광역시', '유성구', '청장', '번길', '아파트',
+                    '트리플', '시티', '포레', '대전', '서울', '부산',
+                    '렌호' // OCR 오인식 단어
+                ];
+                for (const word of generalNameMatch) {
+                    const isExcluded = excludeWords.some(ex => 
+                        word.includes(ex) || ex.includes(word) || word === ex
+                    );
+                    if (!isExcluded && word.length >= 2 && word.length <= 4) {
+                        console.log('일반 매칭으로 찾은 이름:', word);
+                        return word;
+                    }
+                }
+            }
+            return null;
+        }
+        
+        // 이름 비교 (정확 일치 + 유사도 비교)
+        function compareNames(name1, name2) {
+            if (!name1 || !name2) return false;
+            
+            const n1 = name1.replace(/\s/g, '');
+            const n2 = name2.replace(/\s/g, '');
+            
+            // 정확히 일치
+            if (n1 === n2) return true;
+            
+            // 한 글자라도 일치하면 (OCR 오류 허용)
+            // 이름의 첫 글자(성)가 같고 길이가 비슷하면 통과
+            if (n1.length >= 2 && n2.length >= 2) {
+                // 첫 글자(성) 비교
+                if (n1[0] === n2[0]) {
+                    console.log('성이 일치함:', n1[0]);
+                    return true;
+                }
+                
+                // 겹치는 글자 수 확인
+                let matchCount = 0;
+                for (const char of n1) {
+                    if (n2.includes(char)) matchCount++;
+                }
+                // 50% 이상 일치하면 통과
+                if (matchCount >= Math.ceil(n1.length / 2)) {
+                    console.log('유사도 일치:', matchCount, '/', n1.length);
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        function resetForm() {
+            qrFile = null;
+            idFile = null;
+            document.getElementById('qrFileInput').value = '';
+            document.getElementById('idFileInput').value = '';
+            document.getElementById('qrPreviewZone').classList.add('hidden');
+            document.getElementById('idPreviewZone').classList.add('hidden');
+            document.getElementById('qrUploadBtn').classList.remove('hidden');
+            document.getElementById('idUploadBtn').classList.remove('hidden');
+            document.getElementById('verifyBtn').disabled = true;
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('successResult').classList.add('hidden');
+            document.getElementById('errorResult').classList.add('hidden');
+            document.getElementById('uploadSection').classList.remove('hidden');
+        }
+        
+        function copyCode() {
+            const code = 'aiconv26';
+            navigator.clipboard.writeText(code).then(() => {
+                document.getElementById('copyIcon').classList.add('hidden');
+                document.getElementById('checkIcon').classList.remove('hidden');
+                document.getElementById('copyMsg').classList.remove('hidden');
+                
+                setTimeout(() => {
+                    document.getElementById('copyIcon').classList.remove('hidden');
+                    document.getElementById('checkIcon').classList.add('hidden');
+                    document.getElementById('copyMsg').classList.add('hidden');
+                }, 2000);
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                document.getElementById('copyIcon').classList.add('hidden');
+                document.getElementById('checkIcon').classList.remove('hidden');
+                document.getElementById('copyMsg').classList.remove('hidden');
+                
+                setTimeout(() => {
+                    document.getElementById('copyIcon').classList.remove('hidden');
+                    document.getElementById('checkIcon').classList.add('hidden');
+                    document.getElementById('copyMsg').classList.add('hidden');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
